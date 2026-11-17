@@ -6,6 +6,7 @@
     { "src": "extra.css", "use": "@vercel/static" },
     { "src": "script.js", "use": "@vercel/static" },
     { "src": "engine.js", "use": "@vercel/static" },
-    { "src": "extra.js", "use": "@vercel/static" }
+    { "src": "extra.js", "use": "@vercel/static" },
+    { "src": "api/chat.js", "use": "@vercel/node", "config": { "includeFiles": ["prompt.txt"] } }
   ]
 }

@@ -196,7 +196,7 @@ async function ask(q) {
   });
 
   try {
-    const response = await fetch('chat.php', {
+    const response = await fetch(CHAT_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ messages: chat.slice(-10) })
@@ -212,11 +212,11 @@ async function ask(q) {
     }
 
     if (!response.ok) {
-      throw new Error(data.error || `Error HTTP ${response.status}`);
+      throw new Error(errorText(data.error) || `Error HTTP ${response.status}`);
     }
 
     if (!data || typeof data.text !== 'string' || !data.text.trim()) {
-      throw new Error(data?.error || 'El servidor no devolvió una solución.');
+      throw new Error(errorText(data?.error) || 'El servidor no devolvió una solución.');
     }
 
     chat.push({ role: 'assistant', content: data.text });
@@ -243,6 +243,16 @@ async function ask(q) {
     $('chatSend').disabled = false;
     $('chatLog').scrollTop = $('chatLog').scrollHeight;
   }
+}
+
+// En tu PC (XAMPP) se usa chat.php; en Vercel se usa la función /api/chat.
+const CHAT_URL = ['localhost', '127.0.0.1', ''].includes(location.hostname) ? 'chat.php' : '/api/chat';
+
+// Convierte el campo error (texto u objeto) en un mensaje legible.
+function errorText(e) {
+  if (!e) return '';
+  if (typeof e === 'string') return e;
+  return e.message || JSON.stringify(e);
 }
 
 // Aviso bajo los botones (error = 1 para mostrarlo en rojo).
