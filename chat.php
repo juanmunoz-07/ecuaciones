@@ -1,6 +1,5 @@
-
 <?php
-/* EDO LAB - Conexión con Google Gemini API (PHP/XAMPP)
+/* EDO LAB - Conexión con Groq API (PHP/XAMPP)
    La API Key permanece exclusivamente en el servidor.
 */
 
