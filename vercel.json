@@ -8,5 +8,10 @@
     { "src": "engine.js", "use": "@vercel/static" },
     { "src": "extra.js", "use": "@vercel/static" },
     { "src": "api/chat.js", "use": "@vercel/node", "config": { "includeFiles": ["prompt.txt"] } }
+  ],
+  "routes": [
+    { "src": "/api/chat", "dest": "/api/chat.js" },
+    { "handle": "filesystem" },
+    { "src": "/", "dest": "/index.html" }
   ]
 }
